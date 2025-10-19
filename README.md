@@ -1,5 +1,9 @@
 <div align="center">
     <h1>emacs <i>riced up</i></h1>
+  <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin">
+    <img src="screenshots/01.png" width="400">
+    <img src="screenshots/02.png" width="350">
+  </div>
 </div>
 
 ## what's this?
