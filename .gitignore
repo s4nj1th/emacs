@@ -1,0 +1,68 @@
+# Emacs config / .emacs.d gitignore
+# Ignore editor backups, autosaves, lockfiles
+*~
+\#*\#
+.#*
+
+# Compiled / native files
+*.elc
+*.eln
+eln-cache/
+# Byte-compiler transient files
+*.[0-9].elc
+
+# Package managers / downloaded packages
+elpa/
+.elpa/
+straight/
+straight/links/
+.cache/straight/
+.local/straight/
+node_modules/
+
+# Emacs runtime, caches, sessions and servers
+.cache/
+.cache-emacs/
+server
+.server
+.emacs.desktop
+.emacs.desktop.lock
+.emacs.d/server
+.emacs.d/.server
+*.elog
+.*history
+.recentf
+
+# Org / export / db files
+*.org~*
+org-id-locations
+org-static-blog-cache
+.elpa/archives/
+.elfeed-db
+.elfeed-db.* 
+
+# Secrets / auth
+.authinfo
+.authinfo.gpg
+.secrets.el
+*.gpg
+
+# Tags, ctags, etags
+TAGS
+tags
+ctags.out
+
+# Misc OS / editor cruft
+.DS_Store
+Thumbs.db
+
+# Project / editor caches
+.projectile
+.projectile.*
+session.*
+.cacheflycheck
+flycheck.*
+
+recentf
+tramp
+bookmarks
