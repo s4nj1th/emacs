@@ -61,7 +61,7 @@
   :config
   (dashboard-setup-startup-hook)
   (setq dashboard-center-content t
-        dashboard-banner-logo-title "Hello, friend."
+        dashboard-banner-logo-title "hello world"
         dashboard-startup-banner '("~/.emacs.d/avatar.png" . "~/.emacs.d/avatar.txt")
         inhibit-startup-screen t))
 
@@ -82,6 +82,10 @@
         case-fold-search t)
   (ivy-mode 1))
 
+(use-package go-mode)
+
+(use-package cargo)
+
 (use-package counsel
   :after ivy
   :bind (("M-x" . counsel-M-x)
@@ -97,12 +101,15 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(auto-save-default nil)
  '(custom-enabled-themes '(doom-ayu-dark))
  '(custom-safe-themes
-   '("9b9d7a851a8e26f294e778e02c8df25c8a3b15170e6f9fd6965ac5f2544ef2a9"
+   '("5244ba0273a952a536e07abaad1fdf7c90d7ebb3647f36269c23bfd1cf20b0b8"
+     "9b9d7a851a8e26f294e778e02c8df25c8a3b15170e6f9fd6965ac5f2544ef2a9"
      default))
  '(package-selected-packages
-   '(use-package ewal-doom-themes ligature dashboard ivy counsel swiper)))
+   '(cargo counsel dashboard ewal-doom-themes go-mode ivy ligature swiper
+           use-package)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
