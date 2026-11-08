@@ -1,5 +1,8 @@
 ;;; -*- lexical-binding: t; -*-
 
+(require 'comp)
+(setq native-comp-driver-options (cons "-mmacosx-version-min=14.0" native-comp-driver-options))
+
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
@@ -89,7 +92,11 @@
         case-fold-search t)
   (ivy-mode 1))
 
-(use-package go-mode)
+(use-package go-mode
+  :hook (go-mode . eglot-ensure))
+
+(use-package cargo
+  :hook (rust-mode . cargo-minor-mode))
 (use-package cargo)
 
 (use-package counsel
@@ -123,9 +130,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(line-number ((t (:foreground "#5c6370" :background nil))))
- '(line-number-current-line ((t (:foreground "#abb2bf" :background nil :weight bold)))))
+ '(line-number ((t (:foreground "#5c6370" :background unspecified))))
+ '(line-number-current-line ((t (:foreground "#abb2bf" :background unspecified :weight bold)))))
 
 (setq inhibit-startup-screen t
       ring-bell-function 'ignore
-      visible-bell nil)
+  visible-bell nil
+  make-backup-files nil)
