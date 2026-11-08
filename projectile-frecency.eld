@@ -1,0 +1,1 @@
+(("/Users/s4n/.emacs.d/" ("init.el" 2 1794153778) ("bookmarks" 5 1794153960) ("custom.el" 1 1794152360)))

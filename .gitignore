@@ -1,70 +1,66 @@
-# Emacs config / .emacs.d gitignore
-# Ignore editor backups, autosaves, lockfiles
+# Emacs config (~/.emacs.d) .gitignore
+# Track: init.el, early-init.el, avatar.png, avatar.txt, your own lisp/ files.
+
 *~
 \#*\#
 .#*
+auto-save-list/
 
-# Compiled / native files
 *.elc
 *.eln
 eln-cache/
-# Byte-compiler transient files
 *.[0-9].elc
 
-# Package managers / downloaded packages
 elpa/
 .elpa/
 straight/
-straight/links/
-.cache/straight/
-.local/straight/
 node_modules/
 
-# Emacs runtime, caches, sessions and servers
+custom.el
+
 .cache/
-.cache-emacs/
 server
 .server
 .emacs.desktop
 .emacs.desktop.lock
-.emacs.d/server
-.emacs.d/.server
 *.elog
 .*history
-.recentf
+recentf
+places
+history
+bookmarks
+tramp
+url/
+network-security.data
+transient/
+request/
+eshell/
+semantic.cache
 
-# Org / export / db files
-*.org~*
+prescient-save.el
+
+projectile-bookmarks.eld
+projectile.cache
+.projectile
+.projectile.*
+
+.cache/treemacs-persist
+treemacs-persist
+treemacs-persist-at-last-error
+
 org-id-locations
-org-static-blog-cache
-.elpa/archives/
+.org-id-locations
 .elfeed-db
-.elfeed-db.* 
+.elfeed-db.*
 
-# Secrets / auth
 .authinfo
 .authinfo.gpg
 .secrets.el
 *.gpg
 
-# Tags, ctags, etags
 TAGS
 tags
 ctags.out
 
-# Misc OS / editor cruft
 .DS_Store
 Thumbs.db
-
-# Project / editor caches
-.projectile
-.projectile.*
-session.*
-.cacheflycheck
-flycheck.*
-
-recentf
-tramp
-bookmarks
-
-url/
