@@ -1,16 +1,13 @@
 ;;; init.el --- Basic IDE setup: ivy/counsel, projectile, magit, eglot -*- lexical-binding: t; -*-
 
-;; Requires Emacs 29+ (eglot, flymake, use-package are built in).
+;; macOS only; requires Emacs 29+.
 
-(setq gc-cons-threshold (* 50 1024 1024)
-  read-process-output-max (* 1024 1024))
+(setq read-process-output-max (* 1024 1024))
 
-(when (eq system-type 'darwin)
-  (require 'comp)
-  (setq native-comp-driver-options
-        (cons "-mmacosx-version-min=14.0" native-comp-driver-options)))
+(require 'comp)
+(setq native-comp-driver-options
+      (cons "-mmacosx-version-min=14.0" native-comp-driver-options))
 
-;; Keep Custom's junk out of this file.
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file) (load custom-file))
 
@@ -20,10 +17,7 @@
         ("gnu"   . "https://elpa.gnu.org/packages/")))
 (package-initialize)
 
-;; The "Not found" errors come from a stale local copy of the MELPA index:
-;; MELPA deletes old versions, so the cached index points at tarballs that
-;; no longer exist. Refresh when the index is missing, and also retry once
-;; (after a refresh) if any install fails.
+;; Refresh stale package metadata once when installation fails.
 (defvar my/package-refreshed nil)
 
 (unless package-archive-contents
@@ -49,25 +43,16 @@
 
 (use-package diminish)
 
-;; GUI Emacs on macOS doesn't inherit your shell PATH; LSP servers
-;; (gopls, rust-analyzer, ...) and git need it.
+;; GUI Emacs on macOS does not inherit the shell PATH needed by tools.
 (use-package exec-path-from-shell
-  :if (memq window-system '(mac ns x))
+  :if (memq window-system '(mac ns))
   :config (exec-path-from-shell-initialize))
 
-(tool-bar-mode -1)
-(menu-bar-mode -1)
-(scroll-bar-mode -1)
-(fringe-mode '(8 . 8))
-
-(global-display-line-numbers-mode 1)
-(global-visual-line-mode 1)
+(add-hook 'prog-mode-hook #'display-line-numbers-mode)
+(add-hook 'text-mode-hook #'visual-line-mode)
 (column-number-mode 1)
 (show-paren-mode 1)
 (global-hl-line-mode 1)
-
-(push '(width . 94) default-frame-alist)
-(push '(height . 50) default-frame-alist)
 
 (set-face-attribute 'default nil :font "SF Mono-12")
 
@@ -93,8 +78,7 @@
 (use-package doom-modeline
   :init (doom-modeline-mode 1))
 
-;; doom-modeline now uses nerd-icons (not all-the-icons).
-;; Run M-x nerd-icons-install-fonts once, then restart Emacs.
+;; Run M-x nerd-icons-install-fonts once after installing the package.
 (use-package nerd-icons
   :if (display-graphic-p))
 
@@ -140,7 +124,6 @@
 (setq recentf-max-saved-items 200)
 
 (global-set-key (kbd "C-#") #'comment-or-uncomment-region)
-(global-set-key (kbd "C-z") #'shell)
 (global-set-key (kbd "C-x k") #'kill-current-buffer)
 (global-set-key (kbd "M-o") #'other-window)
 
@@ -242,7 +225,7 @@
         company-tooltip-align-annotations t))
 
 (use-package eglot
-  :ensure nil                              ; built in
+  :ensure nil
   :hook ((go-mode         . eglot-ensure)
          (rust-mode       . eglot-ensure)
          (python-mode     . eglot-ensure)
@@ -259,11 +242,6 @@
               ("C-c l u" . xref-find-references))
   :config
   (setq eglot-autoshutdown t))
-;; Navigation: M-. definition, M-? references, M-, go back.
-;; Servers to install: gopls, rust-analyzer, pyright (or pylsp), clangd,
-;; typescript-language-server.
-
-;; Diagnostics via built-in flymake
 (use-package flymake
   :ensure nil
   :hook (prog-mode . flymake-mode)
@@ -272,20 +250,28 @@
               ("M-p" . flymake-goto-prev-error)
               ("C-c ! l" . flymake-show-buffer-diagnostics)))
 
-;; Format on save using whatever formatter is installed (gofmt, rustfmt, black, prettier...)
 (use-package apheleia
   :diminish
   :config (apheleia-global-mode 1))
 
-;; Compile / run
+;; Requires cmake, libtool, and libvterm; first launch compiles the module.
+(use-package vterm
+  :commands vterm
+  :bind (("C-c v" . vterm)
+         ("C-z"   . vterm)
+         :map vterm-mode-map
+         ("C-z" . vterm-send-C-z))
+  :config
+  (setq vterm-max-scrollback 10000
+        vterm-kill-buffer-on-exit t))
+
 (setq compilation-scroll-output t)
 (global-set-key (kbd "<f5>") #'projectile-compile-project)
 (global-set-key (kbd "<f6>") #'recompile)
 
 (use-package go-mode)
 
-;; :mode + :defer means a package only loads when you open a matching file,
-;; so a broken install can't break startup.
+;; Defer optional language packages so broken installs do not block startup.
 (use-package rust-mode
   :mode "\\.rs\\'"
   :defer t)
@@ -308,7 +294,7 @@
   :defer t)
 
 (use-package dashboard
-  :demand t                                ; load at startup, not lazily
+  :demand t
   :bind ("C-x a" . dashboard-open)
   :config
   (setq dashboard-center-content t
@@ -318,5 +304,5 @@
         dashboard-items '((recents  . 8)
                           (projects . 8)
                           (bookmarks . 5))
-        initial-buffer-choice #'dashboard-open)  ; show dashboard on every start
+        initial-buffer-choice #'dashboard-open)
   (dashboard-setup-startup-hook))

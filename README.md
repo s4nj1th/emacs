@@ -8,11 +8,18 @@
 
 ## what's this?
 
-a minimal Emacs config that looks good and feels snappy. no bloat, just the essentials to edit code fast and keep the UI clean.
+a small Emacs config for macOS that looks good and feels snappy: ivy/counsel, projectile, magit, treemacs, eglot (LSP), flymake, format-on-save, and vterm.
 
-everything is intentionally small and readable so you can tinker quickly.
+requirements
+macOS, Emacs 29+ (30 recommended)
+SF Mono (or change the font in init.el)
+vterm build deps: brew install cmake libtool libvterm
+LSP servers for the languages you use, e.g. gopls, rust-analyzer, pyright, clangd, typescript-language-server
+optional formatters for apheleia: gofmt, rustfmt, black, prettier
+
 
 ## setup
-
-1. clone this repo into your `~/.emacs.d`.
-2. restart emacs and get comfy
+ 
+1. back up any existing `~/.emacs.d`, then clone this repo into it.
+2. start Emacs. packages install on first launch.
+3. run `M-x nerd-icons-install-fonts` once, then restart.

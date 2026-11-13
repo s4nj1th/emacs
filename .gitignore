@@ -1,6 +1,3 @@
-# Emacs config (~/.emacs.d) .gitignore
-# Track: init.el, early-init.el, avatar.png, avatar.txt, your own lisp/ files.
-
 *~
 \#*\#
 .#*
@@ -9,50 +6,50 @@ auto-save-list/
 *.elc
 *.eln
 eln-cache/
-*.[0-9].elc
-
 elpa/
 .elpa/
 straight/
 node_modules/
-
 custom.el
-
-.cache/
-server
-.server
-.emacs.desktop
-.emacs.desktop.lock
-*.elog
-.*history
-recentf
-places
-history
-bookmarks
-tramp
-url/
-network-security.data
 transient/
 request/
 eshell/
 semantic.cache
+network-security.data
 
-prescient-save.el
-
-projectile-bookmarks.eld
-projectile.cache
-.projectile
-.projectile.*
-
-.cache/treemacs-persist
-treemacs-persist
-treemacs-persist-at-last-error
-
+# May contain private paths or data.
+.cache/
+var/
+server/
+.emacs.desktop
+.emacs.desktop.lock
+*.elog
+history
+.*history
+recentf
+places
+places.eld
+bookmarks
+tramp
+url/
+savehist
 org-id-locations
 .org-id-locations
 .elfeed-db
 .elfeed-db.*
 
+projectile-bookmarks.eld
+projectile-frecency.eld
+projectile.cache
+.projectile
+.projectile.*
+treemacs-persist
+treemacs-persist-at-last-error
+
+vterm-module.so
+vterm-module/build/
+
+# Secrets.
 .authinfo
 .authinfo.gpg
 .secrets.el
@@ -63,4 +60,6 @@ tags
 ctags.out
 
 .DS_Store
-Thumbs.db
+._*
+
+*.eld
